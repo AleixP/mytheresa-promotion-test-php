@@ -68,7 +68,7 @@ class ImportProductsFromJsonCommand extends Command
                     $this->productRepository->saveWithPrice($product, $price);
                 } catch (\Throwable $e) {
                     $sku = $item['sku'];
-                    $output->writeln("<error>Error saving $sku: {$e->getMessage()}</error>");
+                    $output->writeln("<error>Error saving $sku: \n{$e->getMessage()}</error>");
                 }
                 $progressBar->advance();
             }

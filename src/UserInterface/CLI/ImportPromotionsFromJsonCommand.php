@@ -62,7 +62,7 @@ class ImportPromotionsFromJsonCommand extends Command
                 $this->promotionRepository->save($promotion);
             } catch (\Throwable $e) {
                 $item = json_encode($item);
-                $output->writeln("<error>Error saving $item :<\br> {$e->getMessage()}</error>");
+                $output->writeln("<error>Error saving $item \n:> {$e->getMessage()}</error>");
             }
             $progressBar->advance();
             }
