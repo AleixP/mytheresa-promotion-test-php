@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Price;
 
-use App\Domain\Model\Product\StockKeepingUnit;
+use App\Domain\Model\Product\Product;
 use App\Domain\Shared\Entity;
 
 final class Price extends Entity
 {
     private readonly int $id;
+
     private function __construct(
-        private StockKeepingUnit $stockKeepingUnit,
+        private string $sku,
         private int $price,
         private Currency  $currency,
-        private readonly ?\DateTime $createdAt = null
+        private readonly ?\DateTime $createdAt
     ){}
 
     public function id(): int
@@ -25,20 +26,25 @@ final class Price extends Entity
     {
         return $this->price;
     }
-
+    public function sku(): string
+    {
+        return $this->sku;
+    }
     public function currency(): Currency
     {
         return $this->currency;
     }
 
-    public function stockKeepingUnit(): StockKeepingUnit
+
+   public static function createFromPrimitives(string $sku, int $price, ?string $currency = null): self
     {
-        return $this->stockKeepingUnit;
+        $now = new \DateTime();
+        return new self(
+            $sku,
+            $price,
+            Currency::from($currency),
+            $now
+        );
     }
 
-   /** public static function create(): self
-    {
-        return new self($id, $stockKeepingUnit, $price, $currency
-        );
-    } */
 }

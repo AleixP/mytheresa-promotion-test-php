@@ -22,11 +22,18 @@ class CurrencyType extends Type
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?Currency
     {
-        return $value !== null ? new Currency($value) : null;
+        return $value !== null ? Currency::from($value) : null;
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        return $value instanceof Currency ? (string) $value : null;
+        if ($value instanceof Currency) {
+            return $value->value();
+        }
+
+        if (is_string($value)) {
+            return Currency::from($value)->value();
+        }
+        return null;
     }
 }

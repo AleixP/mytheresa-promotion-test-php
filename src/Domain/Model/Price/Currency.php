@@ -15,15 +15,20 @@ final class Currency extends ValueObject
     ];
     private string $value;
 
-    public function __construct(?string $value = null)
+    private function __construct(?string $value = null)
     {
         self::validateValue($value);
         $this->value = $value ?: self::DEFAULT;
     }
 
-    private static function validateValue(string $value)
+    public static function from(?string $value = null): self
     {
-        if (!in_array($value, self::VALID_OPTIONS)) {
+        return new self($value);
+    }
+
+    private static function validateValue(?string $value): void
+    {
+        if ($value && !in_array($value, self::VALID_OPTIONS)) {
             throw new \InvalidArgumentException(sprintf('Currency %s is not valid', $value));
         }
     }
@@ -37,4 +42,6 @@ final class Currency extends ValueObject
     {
         return $this->value;
     }
+
+
 }

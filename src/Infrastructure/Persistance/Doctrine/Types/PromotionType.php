@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Persistance\Doctrine\Types;
 
-use App\Domain\Model\Product\StockKeepingUnit;
 use App\Domain\Model\Promotion\PromotionType as PromotionTypeEnum;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\JsonType;
+use Doctrine\DBAL\Types\StringType;
 
-class PromotionType extends JsonType
+class PromotionType extends StringType
 {
     public function getName(): string
     {
@@ -35,6 +34,13 @@ class PromotionType extends JsonType
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        return $value instanceof PromotionTypeEnum ? $value->value : null;
+        if ($value instanceof PromotionTypeEnum) {
+            return $value->value;
+        }
+
+        if (is_string($value)) {
+            return PromotionTypeEnum::from($value)->value;
+        }
+        return null;
     }
 }

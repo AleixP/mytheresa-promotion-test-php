@@ -6,9 +6,9 @@ namespace App\Infrastructure\Persistance\Doctrine\Types;
 
 use App\Domain\Model\Product\StockKeepingUnit;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\JsonType;
+use Doctrine\DBAL\Types\Type;
 
-class SkuType extends JsonType
+class SkuType extends Type
 {
     public function getName(): string
     {
@@ -22,11 +22,24 @@ class SkuType extends JsonType
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?StockKeepingUnit
     {
-        return $value !== null ? new StockKeepingUnit($value) : null;
+        return $value !== null ? StockKeepingUnit::from($value) : null;
     }
 
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
+    }
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        return $value instanceof StockKeepingUnit ? (string) $value : null;
+
+        if ($value instanceof StockKeepingUnit) {
+            return $value->getValue();
+        }
+
+        if (is_string($value)) {
+            return StockKeepingUnit::from($value)->getValue();
+        }
+
+        return null;
     }
 }

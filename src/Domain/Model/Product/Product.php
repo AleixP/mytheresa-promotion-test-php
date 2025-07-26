@@ -6,30 +6,35 @@ namespace App\Domain\Model\Product;
 
 use App\Domain\Model\Price\Price;
 use App\Domain\Shared\AggregateRoot;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 final class Product extends AggregateRoot
 {
     private readonly int $id;
-
     private function __construct(
         private string              $name,
         private StockKeepingUnit    $stockKeepingUnit,
         private Category            $category,
-        private Price               $price,
-        private readonly ?\DateTime $createdAt = null,
-        private readonly ?\DateTime $updatedAt = null,
+        private readonly \DateTime $createdAt,
+        private \DateTime $updatedAt,
     ){}
 
-    public static function create(
-        string           $name,
-        StockKeepingUnit $stockKeepingUnit,
-        Category         $category,
-        Price            $price,
+    public static function createFromPrimitives(
+        string $name,
+        string $stockKeepingUnit,
+        string $category
     ): self
     {
-        return new self($name, $stockKeepingUnit, $category, $price);
+        $now = new \DateTime();
+        return new self(
+            $name,
+            StockKeepingUnit::from($stockKeepingUnit),
+            Category::from($category),
+            $now,
+            $now
+        );
     }
-
 
     public function id(): int
     {
@@ -48,11 +53,6 @@ final class Product extends AggregateRoot
         return $this->category;
     }
 
-    public function price(): Price
-    {
-        return $this->price;
-    }
-
     public function createdAt(): \DateTime
     {
         return $this->createdAt;
@@ -62,6 +62,5 @@ final class Product extends AggregateRoot
     {
         return $this->updatedAt;
     }
-
 
 }

@@ -8,15 +8,25 @@ use App\Domain\Shared\ValueObject;
 
 final class StockKeepingUnit extends ValueObject
 {
-    private string $value;
+    public string $value;
 
-    public function __construct(string $value)
+    private function __construct(string $value)
     {
         self::validateValue($value);
         $this->value = $value;
     }
 
+    public static function from(string $value): self
+    {
+        return new self($value);
+    }
+
     public function value(): string
+    {
+        return $this->getValue();
+    }
+
+    public function getValue(): string
     {
         return $this->value;
     }

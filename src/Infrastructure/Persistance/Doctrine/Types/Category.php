@@ -6,9 +6,9 @@ namespace App\Infrastructure\Persistance\Doctrine\Types;
 
 use App\Domain\Model\Product\Category as CategoryEnum;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\JsonType;
+use Doctrine\DBAL\Types\StringType;
 
-class Category extends JsonType
+class Category extends StringType
 {
     public function getName(): string
     {
@@ -34,6 +34,13 @@ class Category extends JsonType
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        return $value instanceof CategoryEnum ? $value->value : null;
+        if ($value instanceof CategoryEnum) {
+            return $value->value;
+        }
+
+        if (is_string($value)) {
+            return CategoryEnum::from($value)->value;
+        }
+        return null;
     }
 }
