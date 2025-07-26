@@ -12,14 +12,24 @@ final class Promotion extends Entity
     private readonly int $id;
 
     private function __construct(
-        int $id,
         private PromotionType $promotionType,
         private string $applicableTo,
         private int $percentage,
         private readonly ?\DateTime $createdAt = null,
-        private readonly ?\DateTime $updatedAt = null,
+        private ?\DateTime $updatedAt = null,
     ){}
 
+    public static function createFromPrimitives(string $promotionType, string $applicableTo, int $percentage): self
+    {
+        $now = new \DateTime();
+        return new self(
+            PromotionType::from($promotionType),
+            $applicableTo,
+            $percentage,
+            $now,
+            $now
+        );
+    }
     public function id(): int
     {
         return $this->id;

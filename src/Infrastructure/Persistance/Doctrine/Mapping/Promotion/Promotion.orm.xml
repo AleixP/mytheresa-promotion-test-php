@@ -15,8 +15,14 @@
 
         <field name="createdAt" type="datetime" column="created_at"/>
         <field name="updatedAt" type="datetime" column="updated_at"/>
+
+        <unique-constraints>
+            <unique-constraint columns="promotion_type,applicable_to"/>
+        </unique-constraints>
+
         <indexes>
             <index name="idx_applicable_to" columns="applicable_to" />
         </indexes>
+
     </entity>
 </doctrine-mapping>

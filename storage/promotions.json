@@ -1,0 +1,13 @@
+{
+  "promotions": [
+    {
+      "type": "category",
+      "applicable_to": "boots",
+      "percentage": 30
+    }, {
+      "type": "sku",
+      "applicable_to": "000003",
+      "percentage": 15
+    }
+  ]
+}

@@ -23,6 +23,8 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 class ImportProductsFromJsonCommand extends Command
 {
     const FILEPATH = 'filepath';
+    const DEFAULT_FILE = '/products.json';
+
     public function __construct(
         #[Autowire('%kernel.project_dir%/storage')]
         private string                     $storagePath,
@@ -38,9 +40,14 @@ class ImportProductsFromJsonCommand extends Command
     }
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $filepath = $input->getArgument(self::FILEPATH) ?: $this->storagePath.'/products.json';
+        $filepath = $input->getArgument(self::FILEPATH) ?: $this->storagePath. self::DEFAULT_FILE;
 
         $data = json_decode(file_get_contents($filepath), true)['products'] ?? [];
+
+        if (empty($data)) {
+            $output->writeln("<error>No products found or bad format in $filepath</error>");
+        }
+
         $itemsCount = count($data);
         $progressBar = new ProgressBar($output, $itemsCount);
         $progressBar->start();
@@ -52,6 +59,7 @@ class ImportProductsFromJsonCommand extends Command
                     $item['sku'],
                     $item['category']
                 );
+                /** @var Price $price */
                 $price = Price::createFromPrimitives(
                     $item['sku'],
                     $item['price'],
