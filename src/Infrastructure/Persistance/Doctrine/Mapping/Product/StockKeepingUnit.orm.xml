@@ -5,7 +5,7 @@
 
     <embeddable name="App\Domain\Model\Product\StockKeepingUnit">
 
-        <field name="value" type="sku" length="255" column="sku"/>
+        <field name="value" type="string" length="255" column="sku"/>
 
     </embeddable>
 

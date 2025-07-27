@@ -9,7 +9,7 @@
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
-        <embedded name="promotionType" class="App\Domain\Model\Promotion\PromotionType" use-column-prefix="false"/>
+        <field name="promotionType" type="string" column="promotion_type" enum-type="App\Domain\Model\Promotion\PromotionType"/>
         <field name="applicableTo" type="string" column="applicable_to"/>
         <field name="percentage" type="integer" column="percentage"/>
 

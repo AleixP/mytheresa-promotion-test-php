@@ -11,7 +11,7 @@
         </id>
         <field name="name" type="string" column="name"/>
         <embedded name="stockKeepingUnit" class="App\Domain\Model\Product\StockKeepingUnit" use-column-prefix="false"/>
-        <embedded name="category" class="App\Domain\Model\Product\Category" use-column-prefix="false"/>
+        <field name="category" type="string" column="category" enum-type="App\Domain\Model\Product\Category"/>
 
         <field name="createdAt" type="datetime" column="created_at"/>
         <field name="updatedAt" type="datetime" column="updated_at"/>

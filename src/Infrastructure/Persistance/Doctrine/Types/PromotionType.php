@@ -8,7 +8,7 @@ use App\Domain\Model\Promotion\PromotionType as PromotionTypeEnum;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 
-class PromotionType extends StringType
+final class PromotionType extends StringType
 {
     public function getName(): string
     {

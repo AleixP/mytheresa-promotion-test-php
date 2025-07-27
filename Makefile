@@ -12,5 +12,5 @@ migrate: ##Executes pending database migrations if any
 	@docker compose exec -T php bin/console --no-interaction doctrine:migrations:migrate
 down: ##Stop the dockers to shut down the system
 	@docker compose down --volumes --remove-orphans
-overwrite-test-data: ##Forces the data deletion on the database and starts again importing the seeds from JSON files
+data-seed: ##Forces the data deletion on the database and starts again importing the seeds from JSON files
 	bash scripts/seed-db.sh --overwrite

@@ -8,7 +8,7 @@ use App\Domain\Model\Price\Currency;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 
-class CurrencyType extends Type
+final class CurrencyType extends Type
 {
     public function getName(): string
     {

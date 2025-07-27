@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Price;
 
-use App\Domain\Model\Product\Product;
 use App\Domain\Shared\Entity;
 
 final class Price extends Entity

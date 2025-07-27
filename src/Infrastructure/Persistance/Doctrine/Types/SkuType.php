@@ -8,7 +8,7 @@ use App\Domain\Model\Product\StockKeepingUnit;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 
-class SkuType extends Type
+final class SkuType extends Type
 {
     public function getName(): string
     {

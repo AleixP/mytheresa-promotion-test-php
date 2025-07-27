@@ -7,8 +7,6 @@ doctrine:
             enum: Doctrine\DBAL\Types\StringType
             sku: App\Infrastructure\Persistance\Doctrine\Types\SkuType
             currency: App\Infrastructure\Persistance\Doctrine\Types\CurrencyType
-            category: App\Infrastructure\Persistance\Doctrine\Types\Category
-            promotion_type: App\Infrastructure\Persistance\Doctrine\Types\PromotionType
         mapping_types:
             enum: string
     orm:

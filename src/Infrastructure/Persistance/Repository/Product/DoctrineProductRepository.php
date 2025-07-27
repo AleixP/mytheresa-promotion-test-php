@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Persistance\Repository\Product;
 
+use App\Domain\Model\Price\Currency;
 use App\Domain\Model\Price\Price;
 use App\Domain\Model\Product\Product;
 use App\Domain\Model\Product\ProductRepository;
@@ -27,6 +28,28 @@ final class DoctrineProductRepository extends ServiceEntityRepository implements
         } catch (\Throwable $exception) {
             throw $exception;
         }
+    }
+
+    public function findByFilters(array $filters, int $offset, ?int $limit = 5): array
+    {
+
+        $qb = $this->createQueryBuilder('product');
+        $qb->join('App\Domain\Model\Price\Price', 'price', 'WITH', 'price.sku = product.stockKeepingUnit.value');
+        $qb->where('price.currency.value = :currency')
+            ->setParameter('currency', $filters['currency'] ?? Currency::DEFAULT);
+
+        if ($filters['category'] ?? null) {
+            $qb->andWhere('product.category = :category')
+                ->setParameter('category', $filters['category']);
+        }
+        if ($filters['priceLessThan'] ?? null) {
+            $qb->andWhere('price.price <= :priceLessThan')
+                ->setParameter('priceLessThan', $filters['priceLessThan']);
+        }
+
+        $qb->select('product');
+
+        return $qb->getQuery()->getResult();
     }
 
 }

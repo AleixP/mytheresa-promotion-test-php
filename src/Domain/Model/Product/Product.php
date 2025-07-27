@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Product;
 
-use App\Domain\Model\Price\Price;
 use App\Domain\Shared\AggregateRoot;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 final class Product extends AggregateRoot
 {
     private readonly int $id;
+
     private function __construct(
         private string              $name,
+        #[ORM\Embedded(class: StockKeepingUnit::class)]
         private StockKeepingUnit    $stockKeepingUnit,
         private Category            $category,
         private readonly \DateTime $createdAt,

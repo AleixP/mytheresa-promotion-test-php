@@ -7,6 +7,7 @@ namespace App\Infrastructure\Persistance\Repository\Promotion;
 use App\Domain\Model\Promotion\Promotion;
 use App\Domain\Model\Promotion\PromotionRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
 final class DoctrinePromotionRepository extends ServiceEntityRepository implements PromotionRepository
@@ -27,4 +28,20 @@ final class DoctrinePromotionRepository extends ServiceEntityRepository implemen
         }
     }
 
+    public function findByFilters(array $filters): array
+    {
+        $qb = $this->createQueryBuilder('promotion');
+
+        foreach ($filters as $column => $value) {
+            if (is_array($value)) {
+                $qb->andWhere($qb->expr()->in("promotion.$column", ":$column"))
+                    ->setParameter($column, $value);
+            } else {
+                $qb->andWhere("promotion.$column = :$column")
+                    ->setParameter($column, $value);
+            }
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -5,7 +5,7 @@
 
     <embeddable name="App\Domain\Model\Price\Currency">
 
-        <field name="value" type="currency" column="currency"/>
+        <field name="value" type="string" column="currency"/>
 
     </embeddable>
 

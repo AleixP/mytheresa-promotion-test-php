@@ -19,7 +19,9 @@ services:
         resource: '../src/UserInterface/CLI'
         tags: ['console.command']
         public: false
-        autowire: true
-        autoconfigure: true
+    App\UserInterface\Http\:
+        resource: '../src/UserInterface/Http'
+        tags: [ 'controller.service_arguments' ]
+        public: true
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

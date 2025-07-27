@@ -8,7 +8,7 @@ use App\Domain\Model\Product\Category as CategoryEnum;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 
-class Category extends StringType
+final class CategoryType extends StringType
 {
     public function getName(): string
     {
@@ -29,6 +29,10 @@ class Category extends StringType
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?CategoryEnum
     {
+        if ($value instanceof CategoryEnum) {
+            return $value;
+        }
+
         return CategoryEnum::from($value);
     }
 
