@@ -7,7 +7,7 @@ namespace App\Domain\Model\Product;
 use App\Domain\Shared\AggregateRoot;
 use Doctrine\ORM\Mapping as ORM;
 
-final class Product extends AggregateRoot
+class Product extends AggregateRoot
 {
     private readonly int $id;
 

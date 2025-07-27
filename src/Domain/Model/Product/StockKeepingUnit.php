@@ -8,7 +8,7 @@ use App\Domain\Shared\ValueObject;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Embeddable]
-final class StockKeepingUnit extends ValueObject
+class StockKeepingUnit extends ValueObject
 {
     #[ORM\Column(name: "sku", type: "string", length: 255)]
     private string $value;

@@ -69,6 +69,8 @@
         }
     },
     "require-dev": {
+        "phpspec/prophecy-phpunit": "dev-master",
+        "phpunit/phpunit": "^12.2",
         "symfony/maker-bundle": "^1.64"
     }
 }

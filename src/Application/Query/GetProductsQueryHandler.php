@@ -6,9 +6,10 @@ namespace App\Application\Query;
 
 use App\Application\Assembler\ProductReadModelAssembler;
 use App\Application\ReadModel\ProductCollection;
+use App\Domain\Model\Product\Category;
 use App\Domain\Model\Product\ProductRepository;
 
-final class GetProductsQueryHandler
+final readonly class GetProductsQueryHandler
 {
     public function __construct(
         private ProductRepository $productRepository,
@@ -17,6 +18,10 @@ final class GetProductsQueryHandler
 
     public function __invoke(GetProductsQuery $query): ProductCollection
     {
+        if ($query->category() && !Category::tryFrom($query->category())) {
+            throw new \InvalidArgumentException('Invalid category');
+        }
+
         $products = $this->productRepository->findPaginatedByFilters(
             [
                 'category' => $query->category(),

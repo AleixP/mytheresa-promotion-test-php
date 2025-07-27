@@ -6,7 +6,7 @@ namespace App\Domain\Model\Price;
 
 use App\Domain\Shared\Entity;
 
-final class Price extends Entity
+class Price extends Entity
 {
     private readonly int $id;
 

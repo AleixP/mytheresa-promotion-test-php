@@ -6,7 +6,7 @@ namespace App\Domain\Model\Promotion;
 
 use App\Domain\Shared\Entity;
 
-final class Promotion extends Entity
+class Promotion extends Entity
 {
 
     private readonly int $id;

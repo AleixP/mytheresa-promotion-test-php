@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace App\Application\ReadModel;
 
-use App\Domain\Model\Product\Product as DomainProduct;
-use App\Domain\Model\Promotion\Promotion as DomainPromotion;
-use App\Domain\Model\Price\Price as DomainPrice;
-
 final readonly class ProductPaginator
 {
     public function __construct(

@@ -8,12 +8,12 @@ use App\Domain\Model\Product\Product as DomainProduct;
 use App\Domain\Model\Promotion\Promotion as DomainPromotion;
 use App\Domain\Model\Price\Price as DomainPrice;
 
-final readonly class Product
+class Product
 {
     public function __construct(
-        public DomainProduct $product,
-        public DomainPrice $price,
-        public ?DomainPromotion $promotion
+        public readonly DomainProduct $product,
+        public readonly DomainPrice $price,
+        public readonly ?DomainPromotion $promotion
     ) {}
 
     public function product(): DomainProduct

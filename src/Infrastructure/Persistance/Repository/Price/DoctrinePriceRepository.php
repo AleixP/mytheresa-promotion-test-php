@@ -7,10 +7,8 @@ namespace App\Infrastructure\Persistance\Repository\Price;
 use App\Domain\Model\Price\Currency;
 use App\Domain\Model\Price\Price;
 use App\Domain\Model\Price\PriceRepository;
-use App\Domain\Model\Product\Product;
 use App\Domain\Model\Product\StockKeepingUnit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 final class DoctrinePriceRepository extends ServiceEntityRepository implements PriceRepository

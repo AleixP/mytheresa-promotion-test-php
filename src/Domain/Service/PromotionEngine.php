@@ -8,9 +8,9 @@ use App\Domain\Model\Product\Product;
 use App\Domain\Model\Promotion\Promotion;
 use App\Domain\Model\Promotion\PromotionRepository;
 
-final class PromotionEngine
+class PromotionEngine
 {
-    public function __construct(private PromotionRepository $promotionRepository){}
+    public function __construct(private readonly PromotionRepository $promotionRepository){}
 
     public function resolveBestForProduct(Product $product): ?Promotion
     {

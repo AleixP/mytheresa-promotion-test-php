@@ -7,7 +7,6 @@ namespace App\Infrastructure\Persistance\Repository\Promotion;
 use App\Domain\Model\Promotion\Promotion;
 use App\Domain\Model\Promotion\PromotionRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
 final class DoctrinePromotionRepository extends ServiceEntityRepository implements PromotionRepository
