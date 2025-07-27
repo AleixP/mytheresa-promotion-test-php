@@ -30,7 +30,7 @@ final class DoctrineProductRepository extends ServiceEntityRepository implements
         }
     }
 
-    public function findByFilters(array $filters, int $offset, ?int $limit = 5): array
+    public function findPaginatedByFilters(array $filters, int $offset, int $limit): array
     {
 
         $qb = $this->createQueryBuilder('product');
@@ -46,6 +46,9 @@ final class DoctrineProductRepository extends ServiceEntityRepository implements
             $qb->andWhere('price.price <= :priceLessThan')
                 ->setParameter('priceLessThan', $filters['priceLessThan']);
         }
+
+        $qb->setFirstResult($offset * $limit)
+            ->setMaxResults($limit);
 
         $qb->select('product');
 

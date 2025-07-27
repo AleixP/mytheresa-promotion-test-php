@@ -11,5 +11,5 @@ interface ProductRepository
 {
     public function saveWithPrice(Product $product, Price $price): void;
 
-    public function findByFilters(array $filters, int $offset, ?int $limit = 5): array;
+    public function findPaginatedByFilters(array $filters, int $offset, int $limit): array;
 }

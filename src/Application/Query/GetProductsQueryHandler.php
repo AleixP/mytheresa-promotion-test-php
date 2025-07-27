@@ -17,12 +17,13 @@ final class GetProductsQueryHandler
 
     public function __invoke(GetProductsQuery $query): ProductCollection
     {
-        $products = $this->productRepository->findByFilters(
+        $products = $this->productRepository->findPaginatedByFilters(
             [
                 'category' => $query->category(),
                 'priceLessThan' => $query->priceLessThan()
             ],
-            $query->page()
+            $query->paginator()->page() - 1,
+            $query->paginator()->limit()
         );
 
         $productCollection = new ProductCollection();
