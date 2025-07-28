@@ -5,6 +5,7 @@ help:  ##Shows all available commands
 
 up: ##Wakes up the application
 	@docker compose up -d
+	@composer install
 	@make migrate
 	bash scripts/seed-db.sh
 
@@ -21,10 +22,12 @@ tests-unit: ##Run the tests under the Unit folder
 	@php bin/phpunit --testsuite=unit
 
 tests-acceptance: ##Run the tests under Acceptance folder
-	@php vendor/bin/codecept run
+	@docker compose exec -T php vendor/bin/codecept run
+
 tests: ##Runs all the tests locally
 	@php bin/phpunit
 	@make tests-acceptance
+
 test: #alias for make tests
 	@make tests
 

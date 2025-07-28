@@ -2,3 +2,8 @@ products:
     path: /products
     controller: App\UserInterface\Http\Controller\GetProductsController
     methods: [GET]
+
+healthz:
+    path: /healthz
+    controller: App\UserInterface\Http\Controller\GetHealthzController
+    methods: [GET]

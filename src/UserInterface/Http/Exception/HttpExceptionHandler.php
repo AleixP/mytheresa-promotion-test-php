@@ -23,6 +23,7 @@ class HttpExceptionHandler implements ExceptionHandler
         } catch (\Throwable $e) {
             // nothing to do
         }
+
         return new JsonResponse([
             'key' => $key,
             'message' => $exception->getMessage(),
@@ -34,7 +35,7 @@ class HttpExceptionHandler implements ExceptionHandler
             'trace' => $exception->getTrace(),
             'trace_as_string' => $exception->getTraceAsString(),
             'previous' => $exception->getPrevious() ? $this->handle($exception->getPrevious()) : ''
-            ], $exception->getCode() >=  300 ? $exception->getCode(): self::DEFAULT_ERROR_CODE
+            ], ($exception->getCode() >=  300 || $exception->getCode() <= 511) ? $exception->getCode(): self::DEFAULT_ERROR_CODE
         );
     }
 }
