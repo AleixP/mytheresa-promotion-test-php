@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Assembler;
 
 use App\Application\Assembler\ProductReadModelAssembler;
+use App\Application\Exception\PriceNotFoundExcpetion;
 use App\Application\ReadModel\Product as ReadModelProduct;
 use App\Domain\Model\Price\Currency;
 use App\Domain\Model\Price\Price;
@@ -64,7 +65,7 @@ class ProductReadModelAssemblerTest extends TestCase
     {
         $this->priceRepository->findBySku($this->sku->reveal(), Currency::from())
             ->shouldBeCalledOnce()->willReturn(null);
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(PriceNotFoundExcpetion::class);
         $this->expectExceptionMessage('Price not found for product sku: 1234');
         $this->sut->assemble($this->product->reveal());
     }

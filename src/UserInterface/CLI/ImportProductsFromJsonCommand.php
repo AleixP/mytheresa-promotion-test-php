@@ -27,7 +27,7 @@ class ImportProductsFromJsonCommand extends Command
 
     public function __construct(
         #[Autowire('%kernel.project_dir%/storage')]
-        private string                     $storagePath,
+        private string $storagePath,
         private ProductRepository $productRepository,
     ){
         parent::__construct();

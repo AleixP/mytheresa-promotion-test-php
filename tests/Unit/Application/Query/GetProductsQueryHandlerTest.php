@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Application\Query;
 
 use App\Application\Assembler\ProductReadModelAssembler;
+use App\Application\Exception\BadRequestException;
 use App\Application\Query\GetProductsQuery;
 use App\Application\Query\GetProductsQueryHandler;
 use App\Application\ReadModel\Paginator;
@@ -62,8 +63,8 @@ final class GetProductsQueryHandlerTest extends TestCase
     public function testGivenInvalidRequestThenExceptionIsThrown(): void
     {
         $query = new GetProductsQuery(self::INVALID_CATEGORY, null, new Paginator(1, 5));
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid category');
+        $this->expectException(BadRequestException::class);
+        $this->expectExceptionMessage('Invalid category provided');
 
         $this->sut->__invoke($query);
     }

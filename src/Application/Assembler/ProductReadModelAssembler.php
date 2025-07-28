@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\Assembler;
 
+use App\Application\Exception\PriceNotFoundExcpetion;
 use App\Application\ReadModel\Product as ReadModelProduct;
 use App\Domain\Model\Price\Currency;
 use App\Domain\Model\Price\PriceRepository;
@@ -23,7 +24,12 @@ class ProductReadModelAssembler
         $price = $this->priceRepository->findBySku($product->sku(), Currency::from($currency));
 
         if (!$price) {
-            throw new \InvalidArgumentException('Price not found for product sku: '. $product->sku()->value());
+            throw new PriceNotFoundExcpetion(
+                'price.not_found',
+                'Price not found for product sku: '. $product->sku()->value(),
+                PriceNotFoundExcpetion::STATUS_CODE,
+                ['sku' => $product->sku()->value()]
+            );
         }
         $promotion = $this->promotionEngine->resolveBestForProduct($product);
 
