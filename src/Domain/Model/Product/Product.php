@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Domain\Model\Product;
 
 use App\Domain\Shared\AggregateRoot;
-use Doctrine\ORM\Mapping as ORM;
 
 class Product extends AggregateRoot
 {
@@ -13,7 +12,6 @@ class Product extends AggregateRoot
 
     private function __construct(
         private string              $name,
-        #[ORM\Embedded(class: StockKeepingUnit::class)]
         private StockKeepingUnit    $stockKeepingUnit,
         private Category            $category,
         private readonly \DateTime $createdAt,
@@ -51,16 +49,6 @@ class Product extends AggregateRoot
     public function category(): Category
     {
         return $this->category;
-    }
-
-    public function createdAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function updatedAt(): \DateTime
-    {
-        return $this->updatedAt;
     }
 
 }

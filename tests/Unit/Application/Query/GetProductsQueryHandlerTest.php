@@ -70,12 +70,25 @@ final class GetProductsQueryHandlerTest extends TestCase
         $this->sut->__invoke($query);
     }
 
-    public function testGivenANegativePageThenExceptionIsThrown(): void
+    public function testGivenANegativePageThenPage1IsUsed(): void
     {
-        $query = new GetProductsQuery(self::VALID_CATEGORY, null, new Paginator(-1, 5));
-        $this->expectException(BadRequestException::class);
-        $this->expectExceptionMessage('Page must be greater than 0');
+        $product = $this->prophesize(Product::class);
+        $this->productRepository->findPaginatedByFilters(
+            [
+                'category' => null,
+                'priceLessThan' => null,
+            ],
+            0,
+            5
+        )->shouldBeCalledOnce()->willReturn([$product->reveal()]);
+        $readModelProduct = $this->prophesize(ReadModelProduct::class);
+        $readModelProduct = $readModelProduct->reveal();
+        $this->productReadModelAssembler->assemble($product)->shouldBeCalledOnce()->willReturn($readModelProduct);
+        $query = new GetProductsQuery(null, null, new Paginator(-1, 5));
+        $data = $this->sut->__invoke($query);
 
-        $this->sut->__invoke($query);
+        $this->assertInstanceOf(ProductCollection::class, $data);
+        $this->assertCount(1, $data);
+        $this->assertSame($readModelProduct, $data->first());
     }
 }

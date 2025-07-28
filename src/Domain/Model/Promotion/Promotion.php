@@ -34,17 +34,6 @@ class Promotion extends Entity
     {
         return $this->id;
     }
-
-    public function promotionType(): PromotionType
-    {
-        return $this->promotionType;
-    }
-
-    public function applicableTo(): string
-    {
-        return $this->applicableTo;
-    }
-
     public function percentage(): int
     {
         return $this->percentage;

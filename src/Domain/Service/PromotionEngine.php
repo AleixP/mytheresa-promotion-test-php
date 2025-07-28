@@ -21,11 +21,16 @@ class PromotionEngine
             ]
            ]
         );
+        return $this->findBestPromotion($availablePromotions);
+    }
+
+
+    public function findBestPromotion(array $availablePromotions): ?Promotion
+    {
         /** @var Promotion $bestPromotion */
         $bestPromotion = null;
         foreach ($availablePromotions as $availablePromotion) {
-            if (!$bestPromotion || $bestPromotion->percentage() < $availablePromotion->percentage())
-            {
+            if (!$bestPromotion || $bestPromotion->percentage() < $availablePromotion->percentage()) {
                 $bestPromotion = $availablePromotion;
             }
         }

@@ -9,6 +9,8 @@ up: ##Wakes up the application
 	@make migrate
 	bash scripts/seed-db.sh
 
+shell: ##Opens an interactive shell
+	@docker compose exec -it php bash
 migrate: ##Executes pending database migrations if any
 	@docker compose exec -T php bin/console --no-interaction doctrine:migrations:migrate
 

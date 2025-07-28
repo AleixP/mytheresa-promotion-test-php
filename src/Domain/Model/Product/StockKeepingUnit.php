@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace App\Domain\Model\Product;
 
 use App\Domain\Shared\ValueObject;
-use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Embeddable]
 class StockKeepingUnit extends ValueObject
 {
-    #[ORM\Column(name: "sku", type: "string", length: 255)]
     private string $value;
 
     private function __construct(string $value)
