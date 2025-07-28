@@ -6,13 +6,13 @@ namespace App\Application\Exception;
 
 class BadRequestException extends \LogicException
 {
-    public const KEY_BAD_REQUEST = 'bad_request_exception';
+    public const KEY_BAD_REQUEST = 'http.bad_request_exception';
     public const STATUS_CODE = 400;
     public function __construct(
-        protected readonly ?string $key = self::KEY_BAD_REQUEST,
         protected $message = 'Bad request exception',
-        protected $code = self::STATUS_CODE,
         private readonly ?array $data = null,
+        protected readonly ?string $key = self::KEY_BAD_REQUEST,
+        protected $code = self::STATUS_CODE,
         private readonly ?array $meta = null,
         protected ?Throwable $previousException = null
     ) {

@@ -20,13 +20,13 @@ final readonly class GetProductsQueryHandler
     public function __invoke(GetProductsQuery $query): ProductCollection
     {
         if ($query->category() && !Category::tryFrom($query->category())) {
-            throw new BadRequestException(BadRequestException::KEY_BAD_REQUEST,
-                'Invalid category provided',
-                BadRequestException::STATUS_CODE,
-                ['category' => $query->category() ?? '']
+            throw new BadRequestException('Invalid category provided',
+                ['category' => $query->category() ?? ''],
+                BadRequestException::KEY_BAD_REQUEST,
+                BadRequestException::STATUS_CODE
             );
         }
-
+        if ($query->paginator()->page() )
         $products = $this->productRepository->findPaginatedByFilters(
             [
                 'category' => $query->category(),

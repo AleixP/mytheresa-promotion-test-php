@@ -11,10 +11,10 @@ final class PriceNotFoundExcpetion extends \LogicException
     public const STATUS_CODE = 404;
 
     public function __construct(
-        protected readonly ?string $key = self::KEY_NOT_FOUND,
         protected $message = 'price not found',
-        protected $code = self::STATUS_CODE,
         private readonly ?array $data = null,
+        protected readonly ?string $key = self::KEY_NOT_FOUND,
+        protected $code = self::STATUS_CODE,
         private readonly ?array $meta = null,
         protected ?Throwable $previousException = null
     ) {

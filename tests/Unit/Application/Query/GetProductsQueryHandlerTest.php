@@ -22,6 +22,7 @@ final class GetProductsQueryHandlerTest extends TestCase
     use ProphecyTrait;
 
     private const INVALID_CATEGORY = 'gloves';
+    private const VALID_CATEGORY = 'boots';
     private ObjectProphecy|ProductReadModelAssembler $productReadModelAssembler;
     private ObjectProphecy|ProductRepository $productRepository;
     private GetProductsQueryHandler $sut;
@@ -65,6 +66,15 @@ final class GetProductsQueryHandlerTest extends TestCase
         $query = new GetProductsQuery(self::INVALID_CATEGORY, null, new Paginator(1, 5));
         $this->expectException(BadRequestException::class);
         $this->expectExceptionMessage('Invalid category provided');
+
+        $this->sut->__invoke($query);
+    }
+
+    public function testGivenANegativePageThenExceptionIsThrown(): void
+    {
+        $query = new GetProductsQuery(self::VALID_CATEGORY, null, new Paginator(-1, 5));
+        $this->expectException(BadRequestException::class);
+        $this->expectExceptionMessage('Page must be greater than 0');
 
         $this->sut->__invoke($query);
     }

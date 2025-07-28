@@ -25,10 +25,8 @@ class ProductReadModelAssembler
 
         if (!$price) {
             throw new PriceNotFoundExcpetion(
-                'price.not_found',
-                'Price not found for product sku: '. $product->sku()->value(),
-                PriceNotFoundExcpetion::STATUS_CODE,
-                ['sku' => $product->sku()->value()]
+                'Price not found for product sku: ' . $product->sku()->value(),
+                ['sku' => $product->sku()->value()],
             );
         }
         $promotion = $this->promotionEngine->resolveBestForProduct($product);

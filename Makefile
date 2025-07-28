@@ -17,11 +17,14 @@ down: ##Stop the dockers to shut down the system
 data-seed: ##Forces the data deletion on the database and starts again importing the seeds from JSON files
 	bash scripts/seed-db.sh --overwrite
 
-tests-unit: ##Runs the tests under the Unit folder
+tests-unit: ##Run the tests under the Unit folder
 	@php bin/phpunit --testsuite=unit
 
+tests-acceptance: ##Run the tests under Acceptance folder
+	@php vendor/bin/codecept run
 tests: ##Runs all the tests locally
 	@php bin/phpunit
-
+	@make tests-acceptance
 test: #alias for make tests
 	@make tests
+
